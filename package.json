@@ -1,0 +1,32 @@
+{
+  "name": "dated_log",
+  "version": "0.0.2",
+  "description": "Log to a dated, per-day, logfile.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisdew/dated_log.git"
+  },
+  "keywords": [
+    "dated",
+    "log",
+    "logfile"
+  ],
+  "author": {
+    "name": "Chris Dew"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chrisdew/dated_log/issues"
+  },
+  "homepage": "https://github.com/chrisdew/dated_log",
+  "readme": "# dated_log\nLog to a dated, per-day, logfile.\n",
+  "readmeFilename": "README.md",
+  "gitHead": "b20f70a08d064335df770f0e373d6cbfc8989744",
+  "_id": "dated_log@0.0.2",
+  "_shasum": "3b445d271efb585137194788d5fd8109c114786e",
+  "_from": "dated_log@latest"
+}
