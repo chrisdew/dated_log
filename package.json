@@ -1,6 +1,6 @@
 {
   "name": "dated_log",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Log to a dated, per-day, logfile.",
   "main": "index.js",
   "scripts": {
