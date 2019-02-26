@@ -1,6 +1,6 @@
 {
   "name": "dated_log",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Log to a dated, per-day, logfile.",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,4 @@
   "readme": "# dated_log\nLog to a dated, per-day, logfile.\n",
   "readmeFilename": "README.md",
   "gitHead": "b20f70a08d064335df770f0e373d6cbfc8989744",
-  "_id": "dated_log@0.0.2",
-  "_shasum": "3b445d271efb585137194788d5fd8109c114786e",
-  "_from": "dated_log@latest"
 }

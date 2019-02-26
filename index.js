@@ -5,45 +5,47 @@
 var fs = require('fs');
 
 /*
-function Logger(prefix) {
-  this._stream = null;
-  this._date = null;
-  this._prefix = prefix;
-}
-
-Logger.prototype.write = function(line) {
-  var today = new Date().toISOString().substring(0, 10);
-  if (today != this._date) {
-    if (this._stream) {
-      this._stream.close();
-    }
-    this._date = today;
-    this._stream = fs.createWriteStream(this._prefix + '.' + this._date, {flags: 'a'});
-  }
-  this._stream.write(line + '\n');
-};
-*/
-
-function dated_log(prefix) {
+ * FIXME: This module uses "sync" functions, which will pause your server for a tiny amount of time, once per day day.
+ */
+function dated_log(prefix, options) {
   var _stream = null;
   var _date = null;
   var _prefix = prefix;
 		
-	return function logger(ob) {
+	return function logger(ob, fn) {
     var today = new Date().toISOString().substring(0, 10);
     if (today != _date) {
+      // close existing _stream and create a new file
       if (_stream) {
         _stream.close();
       }
+
+      if (options && options.symlink) {
+        // remove old symlink
+        if (fs.existsSync(_prefix)) {
+          const lstat = fs.lstatSync(_prefix);
+          //console.log('lstat:', _prefix, lstat);
+          if (lstat.isSymbolicLink()) {
+            //console.log('deleting:', _prefix);
+            fs.unlinkSync(_prefix);
+          } else {
+            //console.error('NOT deleting:', _prefix);
+          }
+        }
+        // create new symlink
+        fs.symlinkSync(_prefix + '.' + today, _prefix);
+      }
+
+      // update local state
+      _stream = fs.createWriteStream(_prefix + '.' + today, {flags: 'a'});
       _date = today;
-      _stream = fs.createWriteStream(_prefix + '.' + _date, {flags: 'a'});
     }
 		if (typeof ob === 'string') {
-      _stream.write(ob + '\n');
+      _stream.write(ob + '\n', fn);
 		} else if (ob.isBuffer && ob.isBuffer()) {
-      _stream.write(ob);
+      _stream.write(ob, fn);
 		} else {
-      _stream.write(JSON.stringify(ob) + '\n');
+      _stream.write(JSON.stringify(ob) + '\n', fn);
 		}
 	}
 }
